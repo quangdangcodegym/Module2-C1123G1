@@ -1,16 +1,39 @@
 package com.cg.utils;
 
+import java.util.Arrays;
+
 public class ArrayUtils {
     public static void main(String[] args) {
-        int[] arr = {5, -7, 8, 3};               // 0x32cc: {3, -1, 5, 6, 8, -7}
-
-        int[] result = insertLast(arr, 10);
-        printArray(result);
-        // arr: 0x32cc
-//        interchangePositiveSort(arr);
-//        printArray(arr);
+        int[] arr = {5, -7, -8, -3};               // 0x32cc: {3, -1, 5, 6, 8, -7}
+        int [] results = removeNegativeNumber(arr);
+        printArray(results);
 
     }
+
+    private static int [] removeNegativeNumber(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] < 0) {
+                for (int j = i; j < arr.length - 1; j++) {
+                    arr[j] = arr[j+1];
+                }
+                //
+                arr = Arrays.copyOf(arr, arr.length-1);     // [5,-8]
+                if(i <= arr.length-1 && arr[i] < 0){
+                    i--;
+                }
+            }
+        }
+        return arr;
+    }
+    public static int [] copyArray(int [] arr, int length){
+        int[] arrNew = new int[length];
+        for (int k = 0; k < arrNew.length; k++) {
+            arrNew[k] = arr[k];
+        }
+        return arrNew;
+    }
+
+
     public static void printArray(int [] numbers){
         for (int value : numbers) {
             System.out.println(value);
